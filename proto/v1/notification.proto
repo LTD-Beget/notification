@@ -1,0 +1,122 @@
+syntax = "proto3";
+ 
+service NotificationService {
+  rpc getSettings(GetSettingsRequest) returns (GetSettingsResponse) {
+    option (google.api.http) = {
+      get: "/v1/notification/settings"
+    };
+  }
+ 
+  rpc setSmsSettings(SetSmsSettingsRequest) returns (SetSmsSettingsResponse) {
+    option (google.api.http) = {
+      put: "/v1/notification/settings/sms",
+      body: "*"
+    };
+  }
+ 
+  rpc setTelegramSettings(SetTelegramSettingsRequest) returns (SetTelegramSettingsResponse) {
+    option (google.api.http) = {
+      put: "/v1/notification/settings/telegram",
+      body: "*"
+    };
+  }
+ 
+  rpc removeTelegramUser(RemoveTelegramUserRequest) returns (RemoveTelegramUserResponse) {
+    option (google.api.http) = {
+      delete: "/v1/notification/telegram/user/{user_id}"
+    };
+  }
+ 
+  rpc regenerateTelegramInviteLink(RegenerateTelegramInviteLinkRequest) returns (RegenerateTelegramInviteLinkResponse) {
+    option (google.api.http) = {
+      post: "/v1/notification/telegram/invite-link",
+      body: "*"
+    };
+  }
+}
+ 
+message GetSettingsRequest {
+ 
+}
+ 
+message GetSettingsResponse {
+  NotificationSettings notification_settings = 1;
+}
+ 
+message SetSmsSettingsRequest {
+  SmsSettings.Mode mode = 1;
+}
+ 
+message SetSmsSettingsResponse {
+  SmsSettings sms_settings = 1;
+}
+ 
+message SetTelegramSettingsRequest {
+  TelegramSettings.Mode mode = 1;
+}
+ 
+message SetTelegramSettingsResponse {
+  TelegramSettings telegram_settings = 1;
+}
+ 
+message RemoveTelegramUserRequest {
+  int64 user_id = 1;
+}
+ 
+message RemoveTelegramUserResponse {
+  TelegramSettings telegram_settings = 1;
+}
+ 
+message RegenerateTelegramInviteLinkRequest {
+}
+ 
+message RegenerateTelegramInviteLinkResponse {
+  TelegramSettings telegram_settings = 1;
+}
+ 
+// ---
+ 
+message NotificationSettings {
+  GlobalSettings   global_settings = 1;
+  SmsSettings      sms_settings = 2;
+  EmailSettings    email_settings = 3;
+  BrowserSettings  browser_settings = 4;
+  TelegramSettings telegram_settings = 5;
+}
+ 
+message GlobalSettings {
+  // global categories like news and marketing
+}
+ 
+message SmsSettings {
+  Mode mode = 1;
+ 
+  enum Mode {
+    ENABLED_PREFER_IM = 0; // sms не отправляется, если есть привязанный мессенджер
+    ENABLED_ALWAYS = 1;
+  }
+}
+ 
+message EmailSettings {
+}
+ 
+message BrowserSettings {
+}
+ 
+message TelegramSettings {
+  Mode   mode = 1;
+  string invite_link_private = 2;
+  string invite_link_group = 3;
+ 
+  repeated ConnectedUser connected_user = 4;
+ 
+  enum Mode {
+    DISABLED = 0;
+    ENABLED = 1;
+  }
+ 
+  message ConnectedUser {
+    int64  id = 1;
+    string display_name = 2;
+  }
+}
