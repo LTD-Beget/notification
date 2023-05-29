@@ -1,4 +1,6 @@
 syntax = "proto3";
+
+package beget.notification.v1.notification
  
 service NotificationService {
   rpc getSettings(GetSettingsRequest) returns (GetSettingsResponse) {
