@@ -38,28 +38,28 @@ service NotificationService {
     };
   }
 
-  rpc SetWebPushToken(SetWebPushTokenRequest) returns (SetWebPushTokenResponse) {
+  rpc setWebPushToken(SetWebPushTokenRequest) returns (SetWebPushTokenResponse) {
     option (google.api.http) = {
-      post: "/v1/notification/push/set-web-token",
+      post: "/v1/notification/push/set-web-push-token",
       body: "*"
     };
   }
 
-  rpc UnsetWebPushToken(UnsetWebPushTokenRequest) returns (UnsetWebPushTokenResponse) {
+  rpc unsetWebPushToken(UnsetWebPushTokenRequest) returns (UnsetWebPushTokenResponse) {
     option (google.api.http) = {
-      post: "/v1/notification/push/unset-web-token",
+      post: "/v1/notification/push/unset-web-push-token",
       body: "*"
     };
   }
 
-  rpc MarkPushAsRead(MarkPushAsReadRequest) returns (MarkPushAsReadResponse) {
+  rpc markPushAsRead(MarkPushAsReadRequest) returns (MarkPushAsReadResponse) {
     option (google.api.http) = {
       post: "/v1/notification/push/mark-push-as-read",
       body: "*"
     };
   }
 
-  rpc MarkPushAsReadAll(MarkPushAsReadAllRequest) returns (MarkPushAsReadAllResponse) {
+  rpc markPushAsReadAll(MarkPushAsReadAllRequest) returns (MarkPushAsReadAllResponse) {
     option (google.api.http) = {
       post: "/v1/notification/push/mark-push-as-read-all",
       body: "*"
