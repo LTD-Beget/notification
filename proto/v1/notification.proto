@@ -65,6 +65,12 @@ service NotificationService {
       body: "*"
     };
   }
+
+  rpc listWebPushNotifications(ListWebPushNotificationsRequest) returns (ListWebPushNotificationsResponse) {
+    option (google.api.http) = {
+      get: "/v1/notification/push/list-web-push-notifications"
+    };
+  }
 }
 
 message GetSettingsRequest {
@@ -171,7 +177,7 @@ message UnsetWebPushTokenResponse {
 }
 
 message MarkPushAsReadRequest {
-  int64 notification_id = 1;
+  int64 order_id = 1;
 }
 
 message MarkPushAsReadResponse {
@@ -183,6 +189,29 @@ message MarkPushAsReadAllRequest {
 
 message MarkPushAsReadAllResponse {
   Result result = 1;
+}
+
+message ListWebPushNotificationsRequest {
+  int32 page_size = 1;
+  int32 page_number = 2;
+  ReadState read_state_filter = 3;
+
+  enum ReadState {
+    ALL = 0;
+    ONLY_READ = 1;
+    ONLY_UNREAD = 2;
+  }
+}
+
+message ListWebPushNotificationsResponse {
+  repeated WebPushNotification web_push_notifications = 1;
+
+  message WebPushNotification {
+    int64 order_id = 1;
+    string title = 2;
+    string text = 3;
+    bool read_received = 4;
+  }
 }
 
 enum Result {
