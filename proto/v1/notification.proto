@@ -3,6 +3,7 @@ syntax = "proto3";
 package beget.notification.v1.notification;
 
 import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
 
 service NotificationService {
   rpc getSettings(GetSettingsRequest) returns (GetSettingsResponse) {
@@ -192,15 +193,6 @@ message MarkPushAsReadAllResponse {
 }
 
 message ListWebPushNotificationsRequest {
-  int32 page_size = 1;
-  int32 page_number = 2;
-  ReadState read_state_filter = 3;
-
-  enum ReadState {
-    ALL = 0;
-    ONLY_READ = 1;
-    ONLY_UNREAD = 2;
-  }
 }
 
 message ListWebPushNotificationsResponse {
@@ -210,7 +202,8 @@ message ListWebPushNotificationsResponse {
     int64 order_id = 1;
     string title = 2;
     string text = 3;
-    bool read_received = 4;
+    google.protobuf.Timestamp sent_at = 4;
+    bool read_received = 5;
   }
 }
 
