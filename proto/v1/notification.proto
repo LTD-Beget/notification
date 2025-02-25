@@ -40,14 +40,14 @@ service NotificationService {
 
   rpc setWebPushToken(SetWebPushTokenRequest) returns (SetWebPushTokenResponse) {
     option (google.api.http) = {
-      post: "/v1/notification/push/set-web-push-token",
+      post: "/v1/notification/push/token",
       body: "*"
     };
   }
 
   rpc unsetWebPushToken(UnsetWebPushTokenRequest) returns (UnsetWebPushTokenResponse) {
     option (google.api.http) = {
-      post: "/v1/notification/push/unset-web-push-token",
+      post: "/v1/notification/push/token/remove",
       body: "*"
     };
   }
